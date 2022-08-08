@@ -1,23 +1,30 @@
-import logo from './logo.svg';
+import Button from './Component/Button';
 import './App.css';
+import { useState } from 'react';
 
-function App() {
+const App=()=> {
+  const [intervalId,setIntervalId]=useState(0);
+  const [counter, setCounter]=useState(0);
+  const handleStart=()=>{
+    clearInterval(intervalId)
+    let intervaloneId=setInterval(()=>{
+       setCounter((prevValue)=>prevValue+1);
+    },1000);
+    setIntervalId(intervaloneId);
+    
+
+  }
+  const handleStop=()=>{
+    clearInterval(intervalId);
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h3>Counter Application</h3>
+      <Button  btnText="Start" btnHandler={handleStart}/>
+      <p>{counter}</p>
+      <Button btnText="Stop" btnHandler={handleStop}/>
     </div>
   );
 }
